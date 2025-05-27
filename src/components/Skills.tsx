@@ -159,7 +159,7 @@ const Skills = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes slideIn {
           from {
             width: 0%;
