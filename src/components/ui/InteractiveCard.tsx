@@ -1,13 +1,14 @@
 
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, CSSProperties } from 'react';
 
 interface InteractiveCardProps {
   children: ReactNode;
   className?: string;
   hoverEffect?: 'tilt' | 'scale' | 'glow';
+  style?: CSSProperties;
 }
 
-const InteractiveCard = ({ children, className = '', hoverEffect = 'tilt' }: InteractiveCardProps) => {
+const InteractiveCard = ({ children, className = '', hoverEffect = 'tilt', style }: InteractiveCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -50,6 +51,7 @@ const InteractiveCard = ({ children, className = '', hoverEffect = 'tilt' }: Int
       style={{
         transform: getTransform(),
         boxShadow: getBoxShadow(),
+        ...style,
       }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

@@ -1,17 +1,10 @@
 
 import { ArrowDown, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import Scene3D from '@/components/3d/Scene3D';
-import { Suspense } from 'react';
 
 const Hero = () => {
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      {/* 3D Background */}
-      <Suspense fallback={null}>
-        <Scene3D />
-      </Suspense>
-
       {/* Enhanced Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800">
         <div 
