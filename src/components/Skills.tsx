@@ -1,5 +1,6 @@
 
 import { Code2, Database, Palette, Globe, Server, Smartphone, TrendingUp, Star, Zap } from 'lucide-react';
+import InteractiveCard from '@/components/ui/InteractiveCard';
 
 const Skills = () => {
   const skillCategories = [
@@ -98,7 +99,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="py-20 bg-slate-800/50 relative overflow-hidden">
+    <section id="skills" className="py-16 lg:py-20 bg-slate-800/50 relative overflow-hidden">
       {/* Enhanced background effects */}
       <div className="absolute top-0 left-0 w-full h-full">
         <div className="absolute top-20 left-20 w-64 h-64 bg-cyan-400/5 rounded-full blur-3xl animate-pulse"></div>
@@ -106,56 +107,57 @@ const Skills = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/3 rounded-full blur-3xl animate-pulse delay-1000"></div>
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-12 lg:mb-16 animate-fade-in">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
             My <span className="text-cyan-400 bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">Skills</span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto">
             I'm constantly learning and improving my skills. Here's an overview of the technologies 
             and tools I work with to bring ideas to life.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12 lg:mb-16">
           {skillCategories.map((category, categoryIndex) => (
-            <div 
+            <InteractiveCard
               key={categoryIndex}
-              className="group bg-gradient-to-br from-slate-900/80 to-slate-800/80 rounded-2xl p-8 border border-slate-700/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 transform hover:-translate-y-3 hover:shadow-2xl hover:shadow-cyan-400/20 animate-fade-in"
+              hoverEffect="tilt"
+              className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 rounded-2xl p-6 lg:p-8 border border-slate-700/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 animate-fade-in"
               style={{ animationDelay: `${categoryIndex * 100}ms` }}
             >
               {/* Enhanced Category Header */}
-              <div className="flex items-center mb-8 group-hover:scale-105 transition-transform duration-300">
-                <div className={`text-white mr-4 p-3 rounded-xl bg-gradient-to-r ${category.color} shadow-lg group-hover:rotate-6 transition-all duration-300`}>
+              <div className="flex items-center mb-6 lg:mb-8 group-hover:scale-105 transition-transform duration-300">
+                <div className={`text-white mr-3 lg:mr-4 p-2.5 lg:p-3 rounded-xl bg-gradient-to-r ${category.color} shadow-lg group-hover:rotate-6 transition-all duration-300`}>
                   {category.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300">{category.title}</h3>
+                <h3 className="text-xl lg:text-2xl font-bold text-white group-hover:text-cyan-100 transition-colors duration-300">{category.title}</h3>
               </div>
 
               {/* Enhanced Skills List */}
-              <div className="space-y-6">
+              <div className="space-y-4 lg:space-y-6">
                 {category.skills.map((skill, skillIndex) => {
                   const rating = getSkillRating(skill.level);
                   return (
                     <div key={skillIndex} className="group/skill">
-                      <div className="flex justify-between items-center mb-3">
+                      <div className="flex justify-between items-center mb-2 lg:mb-3">
                         <div className="flex items-center space-x-2">
-                          <span className="text-slate-300 font-medium group-hover/skill:text-white transition-colors duration-200">{skill.name}</span>
+                          <span className="text-slate-300 font-medium group-hover/skill:text-white transition-colors duration-200 text-sm lg:text-base">{skill.name}</span>
                           <div className={`${rating.color} group-hover/skill:scale-110 transition-transform duration-200`}>
                             {rating.icon}
                           </div>
                         </div>
                         <div className="flex items-center space-x-2">
-                          <span className={`text-xs font-semibold ${rating.color}`}>{rating.label}</span>
-                          <span className="text-cyan-400 text-sm font-bold">{skill.level}%</span>
+                          <span className={`text-xs font-semibold ${rating.color} hidden sm:inline`}>{rating.label}</span>
+                          <span className="text-cyan-400 text-xs lg:text-sm font-bold">{skill.level}%</span>
                         </div>
                       </div>
                       
                       {/* Enhanced Skill Bar */}
                       <div className="relative">
-                        <div className="w-full bg-slate-700/50 rounded-full h-3 overflow-hidden backdrop-blur-sm">
+                        <div className="w-full bg-slate-700/50 rounded-full h-2.5 lg:h-3 overflow-hidden backdrop-blur-sm">
                           <div 
-                            className={`h-3 rounded-full transition-all duration-1000 ease-out ${getSkillBarColor(skill.level, category.color)} relative overflow-hidden group-hover/skill:shadow-lg`}
+                            className={`h-2.5 lg:h-3 rounded-full transition-all duration-1000 ease-out ${getSkillBarColor(skill.level, category.color)} relative overflow-hidden group-hover/skill:shadow-lg`}
                             style={{ 
                               width: `${skill.level}%`,
                               animation: `slideIn 1.5s ease-out ${skillIndex * 0.1}s both`
@@ -167,7 +169,7 @@ const Skills = () => {
                         </div>
                         {/* Glow effect */}
                         <div 
-                          className={`absolute top-0 left-0 h-3 rounded-full opacity-0 group-hover/skill:opacity-50 transition-all duration-500 bg-gradient-to-r ${category.color} blur-sm`}
+                          className={`absolute top-0 left-0 h-2.5 lg:h-3 rounded-full opacity-0 group-hover/skill:opacity-50 transition-all duration-500 bg-gradient-to-r ${category.color} blur-sm`}
                           style={{ width: `${skill.level}%` }}
                         ></div>
                       </div>
@@ -177,7 +179,7 @@ const Skills = () => {
               </div>
 
               {/* Category progress indicator */}
-              <div className="mt-6 pt-4 border-t border-slate-600/50">
+              <div className="mt-4 lg:mt-6 pt-4 border-t border-slate-600/50">
                 <div className="flex items-center justify-between text-xs text-slate-400">
                   <span>Category Mastery</span>
                   <span className="font-semibold">
@@ -185,30 +187,32 @@ const Skills = () => {
                   </span>
                 </div>
               </div>
-            </div>
+            </InteractiveCard>
           ))}
         </div>
 
         {/* Enhanced Additional Skills Summary */}
         <div className="text-center animate-fade-in delay-800">
-          <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 rounded-2xl p-10 border border-slate-700/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-400/20 group">
-            <h3 className="text-3xl font-bold text-white mb-6 group-hover:text-cyan-100 transition-colors duration-300">Other Competencies</h3>
-            <div className="flex flex-wrap justify-center gap-4">
-              {[
-                "Agile Development", "Code Review", "Team Leadership", "Problem Solving",
-                "Performance Optimization", "Testing", "Documentation", "API Design",
-                "Security Best Practices", "Continuous Integration"
-              ].map((skill, index) => (
-                <span 
-                  key={index}
-                  className="px-6 py-3 bg-gradient-to-r from-cyan-400/10 to-blue-400/10 text-cyan-400 rounded-full text-sm font-medium border border-cyan-400/30 hover:bg-gradient-to-r hover:from-cyan-400/20 hover:to-blue-400/20 hover:scale-105 hover:border-cyan-400/50 transition-all duration-300 cursor-default hover:shadow-lg hover:shadow-cyan-400/25 backdrop-blur-sm"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  {skill}
-                </span>
-              ))}
+          <InteractiveCard hoverEffect="glow">
+            <div className="bg-gradient-to-br from-slate-900/80 to-slate-800/80 rounded-2xl p-6 sm:p-8 lg:p-10 border border-slate-700/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-500 hover:shadow-2xl hover:shadow-cyan-400/20">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-6 group-hover:text-cyan-100 transition-colors duration-300">Other Competencies</h3>
+              <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
+                {[
+                  "Agile Development", "Code Review", "Team Leadership", "Problem Solving",
+                  "Performance Optimization", "Testing", "Documentation", "API Design",
+                  "Security Best Practices", "Continuous Integration"
+                ].map((skill, index) => (
+                  <span 
+                    key={index}
+                    className="px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-cyan-400/10 to-blue-400/10 text-cyan-400 rounded-full text-xs sm:text-sm font-medium border border-cyan-400/30 hover:bg-gradient-to-r hover:from-cyan-400/20 hover:to-blue-400/20 hover:scale-105 hover:border-cyan-400/50 transition-all duration-300 cursor-default hover:shadow-lg hover:shadow-cyan-400/25 backdrop-blur-sm"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
+          </InteractiveCard>
         </div>
       </div>
 
