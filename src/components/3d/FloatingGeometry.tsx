@@ -1,33 +1,38 @@
-
-import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Mesh } from 'three';
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
+import type { Mesh } from "three";
 
 interface FloatingGeometryProps {
   position: [number, number, number];
-  geometry: 'box' | 'sphere' | 'torus';
+  geometry: "box" | "sphere" | "torus";
   color: string;
   scale?: number;
 }
 
-const FloatingGeometry = ({ position, geometry, color, scale = 1 }: FloatingGeometryProps) => {
+const FloatingGeometry = ({
+  position,
+  geometry,
+  color,
+  scale = 1,
+}: FloatingGeometryProps) => {
   const meshRef = useRef<Mesh>(null);
 
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.x = state.clock.elapsedTime * 0.5;
       meshRef.current.rotation.y = state.clock.elapsedTime * 0.3;
-      meshRef.current.position.y = position[1] + Math.sin(state.clock.elapsedTime + position[0]) * 0.5;
+      meshRef.current.position.y =
+        position[1] + Math.sin(state.clock.elapsedTime + position[0]) * 0.5;
     }
   });
 
   const renderGeometry = () => {
     switch (geometry) {
-      case 'box':
+      case "box":
         return <boxGeometry args={[1, 1, 1]} />;
-      case 'sphere':
+      case "sphere":
         return <sphereGeometry args={[0.5, 32, 32]} />;
-      case 'torus':
+      case "torus":
         return <torusGeometry args={[0.5, 0.2, 16, 100]} />;
       default:
         return <boxGeometry args={[1, 1, 1]} />;

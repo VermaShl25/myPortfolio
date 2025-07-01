@@ -142,7 +142,7 @@ const Contact = () => {
             </div>
 
             {/* Availability Status */}
-            <InteractiveCard hoverEffect="glow" className="mt-6 lg:mt-8">
+            <InteractiveCard hoverEffect="scale" className="mt-6 lg:mt-8">
               <div className="p-4 lg:p-6 bg-slate-800/50 rounded-xl border border-slate-700 backdrop-blur-sm hover:border-green-400/50 transition-all duration-300">
                 <div className="flex items-center mb-2">
                   <div className="w-3 h-3 bg-green-400 rounded-full mr-3 animate-pulse"></div>
@@ -157,7 +157,7 @@ const Contact = () => {
           </div>
 
           {/* Contact Form */}
-          <InteractiveCard hoverEffect="tilt">
+          <InteractiveCard hoverEffect="scale">
             <div className="bg-slate-800/50 rounded-xl p-6 lg:p-8 border border-slate-700 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-300">
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-6">Send a Message</h3>
               

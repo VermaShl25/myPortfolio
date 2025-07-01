@@ -1,14 +1,18 @@
-
-import { ReactNode, useState, CSSProperties } from 'react';
+import { ReactNode, useState, CSSProperties } from "react";
 
 interface InteractiveCardProps {
   children: ReactNode;
   className?: string;
-  hoverEffect?: 'tilt' | 'scale' | 'glow';
+  hoverEffect?: "tilt" | "scale" | "glow";
   style?: CSSProperties;
 }
 
-const InteractiveCard = ({ children, className = '', hoverEffect = 'tilt', style }: InteractiveCardProps) => {
+const InteractiveCard = ({
+  children,
+  className = "",
+  hoverEffect = "tilt",
+  style,
+}: InteractiveCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
@@ -20,39 +24,46 @@ const InteractiveCard = ({ children, className = '', hoverEffect = 'tilt', style
   };
 
   const getTransform = () => {
-    if (!isHovered) return 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
-    
+    if (!isHovered)
+      return "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
+
     switch (hoverEffect) {
-      case 'tilt':
-        return `perspective(1000px) rotateX(${mousePosition.y * 10}deg) rotateY(${mousePosition.x * 10}deg) scale(1.02)`;
-      case 'scale':
-        return 'perspective(1000px) scale(1.05)';
-      case 'glow':
-        return 'perspective(1000px) scale(1.02)';
+      case "tilt":
+        return `perspective(1000px) rotateX(${
+          mousePosition.y * 10
+        }deg) rotateY(${mousePosition.x * 10}deg) scale(1.02)`;
+      case "scale":
+        return "perspective(1000px) scale(1.05)";
+      case "glow":
+        return "perspective(1000px) scale(1.02)";
       default:
-        return 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+        return "perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)";
     }
   };
 
-  const getBoxShadow = () => {
-    if (!isHovered) return '0 4px 20px rgba(0, 0, 0, 0.1)';
-    
-    switch (hoverEffect) {
-      case 'glow':
-        return '0 20px 60px rgba(34, 211, 238, 0.4), 0 0 40px rgba(34, 211, 238, 0.2)';
-      default:
-        return '0 20px 40px rgba(0, 0, 0, 0.2)';
-    }
+  const baseStyles: CSSProperties = {
+    transform: getTransform(),
+    position: "relative",
+    ...style,
   };
+
+  if (hoverEffect === "glow" && isHovered) {
+    baseStyles.boxShadow = "0 4px 20px rgba(0, 0, 0, 0.1)";
+    baseStyles.isolation = "isolate";
+  } else {
+    baseStyles.boxShadow = isHovered
+      ? "0 20px 40px rgba(0, 0, 0, 0.2)"
+      : "0 4px 20px rgba(0, 0, 0, 0.1)";
+  }
 
   return (
     <div
-      className={`transition-all duration-300 ease-out ${className}`}
-      style={{
-        transform: getTransform(),
-        boxShadow: getBoxShadow(),
-        ...style,
-      }}
+      className={`transition-all duration-300 ease-out ${className} ${
+        hoverEffect === "glow"
+          ? "before:absolute before:inset-[-2px] before:rounded-[inherit] before:transition-all before:duration-300 before:z-[-1] before:opacity-0 hover:before:opacity-100 before:bg-cyan-400/30 before:blur-xl"
+          : ""
+      }`}
+      style={baseStyles}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseMove={handleMouseMove}
